@@ -1,0 +1,17 @@
+name: Docker Image CI for GHCR
+
+    on: 
+      push
+
+
+    jobs:
+      build_and_publish:
+        runs-on: rhel-latest
+        steps:
+          - uses: actions/checkout@v3
+          - name: Build and push the image
+            run: |
+              docker login --username logankal --password ${{ secrets.Sinigang }} ghcr.io
+            docker build . --tag ghcr.io/logankal/static-website-ghcr:latest
+            docker push ghcr.io/logankal/static-website-ghcr:latest
+
